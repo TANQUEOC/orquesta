@@ -1,0 +1,138 @@
+---
+name: orquesta-router
+description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: marketing autónomo, procesos de negocio, creatividad audiovisual o control total.
+---
+
+# Orquesta Router
+
+Esta es la skill madre de Orquesta.
+
+Su función no es resolver en detalle todos los problemas por sí sola, sino identificar correctamente el tipo de reto y activar el enfoque especializado adecuado dentro del ecosistema Orquesta.
+
+## Cuándo usar esta skill
+
+Úsala cuando el usuario pida ayuda sobre Orquesta de forma amplia o ambigua, por ejemplo:
+
+- diseño de una solución basada en agentes IA
+- arquitectura para una empresa automatizada
+- mejora operativa con IA
+- crecimiento comercial automatizado
+- producción audiovisual con IA
+- gobierno, control o supervisión de automatizaciones
+- casos en los que todavía no está claro qué skill especializada encaja mejor
+
+Si el usuario ya pide claramente una de las áreas específicas, usa directamente la skill especializada en vez de esta.
+
+## Skills hijas disponibles
+
+### 1. `orquesta-marketing-autonomo`
+Úsala cuando el reto esté centrado en:
+- captación
+- embudos
+- leads
+- nurturing
+- CRM
+- campañas
+- contenido orientado a crecimiento
+- adquisición, activación, retención o revenue
+
+### 2. `orquesta-procesos-negocio`
+Úsala cuando el reto esté centrado en:
+- operaciones
+- backoffice
+- procesos empresariales
+- integraciones entre sistemas
+- automatización de flujos
+- eficiencia operativa
+- aprobaciones, tickets, onboarding, documentación o circuitos de trabajo
+
+### 3. `orquesta-creatividad-audiovisual`
+Úsala cuando el reto esté centrado en:
+- branding audiovisual
+- campañas creativas
+- vídeo
+- piezas visuales
+- storytelling
+- contenido multiformato
+- producción creativa escalable
+
+### 4. `orquesta-control-total`
+Úsala cuando el reto esté centrado en:
+- gobierno
+- observabilidad
+- seguridad
+- permisos
+- supervisión
+- métricas
+- alertas
+- control de agentes
+- riesgos operativos o compliance
+
+## Método de clasificación
+
+Antes de derivar, analiza siempre:
+
+1. Objetivo principal del negocio.
+2. Área dominante del problema.
+3. Qué sistema necesita diseñarse o corregirse.
+4. Qué tipo de riesgo tendría una mala decisión.
+5. Si el caso pertenece claramente a una skill o mezcla varias.
+
+## Reglas de derivación
+
+### Derivación simple
+Si el problema cae claramente en una sola categoría, deriva a esa skill y responde desde ese marco.
+
+### Derivación mixta
+Si el problema mezcla varias áreas, haz esto:
+- identifica la skill principal
+- identifica skills secundarias de apoyo
+- responde con liderazgo de la skill principal, pero explicando qué otras capas intervienen
+
+Ejemplo:
+- un sistema de captación con reporting y gobierno → principal `orquesta-marketing-autonomo`, apoyo `orquesta-control-total`
+- una fábrica de contenido con distribución y medición → principal `orquesta-creatividad-audiovisual`, apoyo `orquesta-marketing-autonomo`
+- una operación automatizada entre CRM, ERP y aprobaciones con observabilidad → principal `orquesta-procesos-negocio`, apoyo `orquesta-control-total`
+
+### Si falta contexto
+Si no está claro qué skill corresponde, pide contexto mínimo antes de profundizar.
+
+Pide solo lo necesario:
+- objetivo de negocio
+- tipo de proceso o área afectada
+- sistemas implicados
+- prioridad principal: crecer, operar mejor, crear contenido o controlar riesgo
+
+## Cómo responder
+
+Cuando uses esta skill, responde en tres capas:
+
+1. **Diagnóstico de encaje**
+   - qué tipo de problema es
+   - por qué pertenece a una skill concreta o a una combinación
+
+2. **Ruta recomendada**
+   - skill principal
+   - skills secundarias si aplica
+
+3. **Primer marco de trabajo**
+   - siguiente enfoque útil
+   - quick wins
+   - siguiente paso recomendado
+
+## Principios
+
+- No fuerces una sola skill si el caso es realmente mixto.
+- Prioriza siempre el problema dominante del negocio.
+- Derivar bien es más importante que responder rápido pero mal enfocado.
+- Orquesta es un sistema de especialidades coordinadas, no una skill monolítica.
+
+## Formato de salida
+
+Entrega normalmente así:
+
+- tipo de problema
+- skill principal recomendada
+- skills secundarias si aplica
+- por qué
+- siguiente paso útil
