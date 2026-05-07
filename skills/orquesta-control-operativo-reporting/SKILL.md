@@ -125,6 +125,9 @@ Usa los que encajen:
 - porcentaje de automatizaciones exitosas
 - incidencias críticas abiertas
 
+## Referencia reusable
+Si hace falta aterrizar este pilar sobre lo ya documentado en ORQUESTA, lee `references/reporting-control-v3-reference.md`.
+
 ## Reglas
 
 - No mezcles métricas ejecutivas con detalle operativo en la misma vista si eso ensucia decisiones.

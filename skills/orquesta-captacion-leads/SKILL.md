@@ -131,6 +131,9 @@ Usa los que encajen:
 - ratio cita a venta
 - origen con mejor rendimiento
 
+## Referencia reusable
+Si hace falta aterrizar este pilar sobre lo ya construido en ORQUESTA, lee `references/captacion-v3-reference.md`.
+
 ## Reglas
 
 - No diseñes captación separada del CRM.

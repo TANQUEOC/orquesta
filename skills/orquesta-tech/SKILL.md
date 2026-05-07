@@ -88,6 +88,7 @@ Según el caso, ORQUESTA Tech suele combinar:
 - Lee `references/agentic-production-checklist.md` cuando el trabajo se acerque a producción o implique riesgos operativos.
 - Lee `references/orquesta-tech-scope.md` cuando haya que delimitar bien el alcance técnico de esta skill frente a otras skills de ORQUESTA.
 - Lee `references/solo-founder-agentic-stack.md` cuando haga falta definir stack, flujo de trabajo o criterio de herramientas para lanzar rápido con un equipo pequeño o un solo founder.
+- Lee `references/knowledge-organization-and-rag-readiness.md` cuando el trabajo trate de preparar proyectos, skills o documentación para MCP, Supabase o RAG.
 
 ## Entregables típicos
 - arquitectura mínima

@@ -128,6 +128,9 @@ Usa los que encajen:
 - tickets o incidencias en primera semana
 - churn temprano o insatisfacción inicial
 
+## Referencia reusable
+Si hace falta aterrizar este pilar sobre lo ya documentado en ORQUESTA, lee `references/onboarding-v3-reference.md`.
+
 ## Reglas
 
 - No confundas onboarding con soporte.
