@@ -1,6 +1,6 @@
 ---
 name: orquesta-router
-description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: marketing autónomo, procesos de negocio, creatividad audiovisual o control total.
+description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: captación, onboarding, reporting y control, marketing autónomo, procesos de negocio, creatividad audiovisual, control total o capa tech de arquitectura, integraciones, n8n, APIs, Supabase, memoria, RAG y sistemas agentic reales.
 ---
 
 # Orquesta Router
@@ -98,6 +98,18 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - control de agentes
 - riesgos operativos o compliance
 
+### 8. `orquesta-tech`
+Úsala cuando el reto esté centrado en:
+- arquitectura técnica
+- integraciones
+- n8n o Make
+- APIs y webhooks
+- Supabase y datos
+- memoria y RAG
+- evals, control de costes y kill switch
+- approval gates
+- despliegue de sistemas agentic reales
+
 ## Método de clasificación
 
 Antes de derivar, analiza siempre:
@@ -125,6 +137,7 @@ Ejemplo:
 - una operación con SLAs, incidencias y dashboard semanal → principal `orquesta-control-operativo-reporting`, apoyo `orquesta-control-total`
 - una fábrica de contenido con distribución y medición → principal `orquesta-creatividad-audiovisual`, apoyo `orquesta-marketing-autonomo`
 - una operación automatizada entre CRM, ERP y aprobaciones con observabilidad → principal `orquesta-procesos-negocio`, apoyo `orquesta-control-total`
+- una implantación con n8n, Supabase, webhooks, memoria y aprobación humana → principal `orquesta-tech`, apoyo según el proceso de negocio implicado
 
 ### Si falta contexto
 Si no está claro qué skill corresponde, pide contexto mínimo antes de profundizar.
