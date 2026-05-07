@@ -44,6 +44,9 @@ La propuesta no es: “vamos a automatizarlo todo”.
 
 La propuesta es: “vamos a elegir el proceso adecuado, rediseñarlo, automatizarlo en lo posible y dejarlo medido en una semana de sprint”.
 
+Y una precisión importante: Orquesta no debe quedarse en entregar herramientas para que otro trabaje.
+Debe diseñar sistemas que hagan una parte real del trabajo por el cliente, con supervisión humana donde toque.
+
 ## Estructura de la metodología
 
 ## Día 1. Selección y definición
@@ -70,6 +73,7 @@ Trabajo:
 - identificar triggers y decisiones
 - separar qué hace humano y qué hace sistema
 - definir estados del proceso
+- decidir qué trabajo real ejecutará el agente y qué queda en revisión humana
 
 Entregables:
 - flujo objetivo v1
@@ -84,6 +88,7 @@ Trabajo:
 - conectar formularios, CRM, bases de datos, email, documentos o automatizadores
 - definir entradas, salidas y actualizaciones
 - dejar operativa la primera versión del flujo
+- definir herramientas, contexto y memoria mínima que necesita el sistema para ejecutar bien
 
 Entregables:
 - arquitectura mínima funcional
@@ -98,6 +103,7 @@ Trabajo:
 - medir tiempos, estados, errores y volumen
 - añadir logs, trazabilidad o checkpoints
 - validar riesgos y fallos previsibles
+- definir approval gates, límites de coste y mecanismo de corte si el flujo se descontrola
 
 Entregables:
 - cuadro mínimo de métricas
@@ -122,6 +128,8 @@ Entregables:
 ## Qué papel juegan los agentes de Orquesta
 En esta metodología, los agentes no sustituyen criterio humano, lo amplifican.
 
+No son chatbots decorativos. Deben trabajar con objetivos, herramientas y contexto.
+
 Según el caso, Orquesta puede activar agentes para:
 - research
 - clasificación
@@ -134,6 +142,11 @@ Según el caso, Orquesta puede activar agentes para:
 - creatividad audiovisual
 
 La regla es simple: el agente entra donde aporta velocidad, consistencia o capacidad analítica. El humano sigue gobernando prioridades, excepciones y decisiones sensibles.
+
+En términos prácticos, cada sprint de Orquesta debería dejar claro:
+- qué hace el agente solo
+- qué hace el agente con revisión
+- qué nunca ejecuta sin aprobación humana
 
 ## Cuándo encaja mejor esta metodología
 Encaja especialmente bien cuando:

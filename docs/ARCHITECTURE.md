@@ -9,13 +9,18 @@ Significa que Orquesta ya tiene una estructura operativa clara para seguir creci
 ## Idea central
 Orquesta v2 se organiza como un sistema de especialidades coordinadas.
 
-Hay cinco capas:
+A partir de ahora además asume una regla estratégica más fuerte:
+
+**Orquesta no debe limitarse a dar herramientas para que el usuario trabaje. Debe diseñarse para que agentes bien orquestados hagan trabajo real por el cliente, con supervisión humana donde haga falta.**
+
+Hay seis capas:
 
 1. **router**
 2. **agentes especializados**
 3. **skills por proceso real**
-4. **memoria y documentación por pilar**
+4. **memoria y contexto operativo**
 5. **integraciones y activos reutilizables**
+6. **gobierno de producción**
 
 ## 1. Router
 El router decide por dónde entra cada reto.
@@ -31,6 +36,8 @@ Su función es:
 
 ## 2. Agentes especializados
 Aunque hoy operemos desde una misma sesión, la arquitectura ya contempla estos agentes funcionales:
+
+Regla de diseño: cada agente debe trabajar con **objetivo**, no solo con prompt. Eso implica que cada pieza de Orquesta debe poder razonar, usar herramientas, observar resultados y decidir el siguiente paso dentro de límites definidos.
 
 - **agent-direccion**: visión, priorización, roadmap, decisiones de negocio
 - **agent-leads**: captación, scoring, CRM, embudos
@@ -77,6 +84,8 @@ Cada pilar debe acabar teniendo:
 ## 5. Integraciones y activos reutilizables
 La arquitectura prevé conectar progresivamente:
 
+Estas integraciones no son accesorios. Son la base para que los agentes actúen sobre sistemas reales y no se queden en generación de texto.
+
 - CRM
 - formularios
 - Gmail
@@ -93,6 +102,19 @@ Y además crear:
 - flujos JSON
 - prompts reutilizables
 - documentos de trabajo por caso
+- catálogos de herramientas y acciones por agente
+- contratos de entrada y salida entre procesos
+
+## 6. Gobierno de producción
+Todo diseño serio en Orquesta debe incorporar desde el principio estas piezas:
+
+- **observabilidad**: ver qué hizo el agente, qué herramientas llamó y dónde falló
+- **evals**: casos de prueba para detectar regresiones de comportamiento
+- **control de coste**: budgets, alertas y límites por agente
+- **kill switch**: corte inmediato si un loop o una ejecución se descontrola
+- **approval gates**: acciones destructivas, irreversibles o sensibles requieren humano
+
+Sin esta capa, no estamos construyendo Orquesta en producción. Solo demos bonitas.
 
 ## Cómo crecer desde aquí
 La unidad de avance recomendada sigue siendo:
@@ -103,12 +125,15 @@ Cada caso nuevo debe pasar por esta secuencia:
 
 1. elegir pilar
 2. elegir proceso concreto
-3. asignar skill principal
-4. documentar caso de uso
-5. diseñar flujo objetivo
-6. definir stack
-7. definir métricas
-8. dejar backlog siguiente
+3. definir el trabajo real que el sistema debe hacer por el cliente
+4. asignar skill principal
+5. documentar caso de uso
+6. diseñar flujo objetivo
+7. definir herramientas, datos y contexto necesarios
+8. definir stack
+9. definir métricas
+10. definir observabilidad, approval gates y límites de coste
+11. dejar backlog siguiente
 
 ## Casos de uso prioritarios iniciales
 ### Pilar 1. Captación
@@ -151,9 +176,18 @@ Crece por piezas reutilizables:
 - una automatización
 - una lección aprendida
 
+Y una regla extra: **cada pieza debe intentar subir de herramienta a ejecución**.
+
+No basta con decir "aquí tienes el dashboard" o "aquí tienes el formulario".
+La pregunta de Orquesta debe ser siempre:
+
+**¿qué parte del trabajo completo puede resolver el sistema por el cliente, con qué contexto, con qué herramientas y con qué supervisión?**
+
 ## Siguiente fase recomendada
 1. completar documentación de pilares
 2. crear un caso de uso por pilar
 3. generar playbooks concretos
 4. conectar integraciones reales
-5. separar agentes persistentes cuando compense
+5. definir memoria, herramientas y approval gates por proceso crítico
+6. introducir observabilidad y evals en los flujos más maduros
+7. separar agentes persistentes cuando compense
