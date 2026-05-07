@@ -1,0 +1,99 @@
+{
+  "name": "ORQUESTA - Captacion leads base v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date().toISOString();\nconst row = {\n  lead_id: `lead_${Date.now()}`,\n  created_at: now,\n  source: 'google-form',\n  campaign: '',\n  name: 'Lead de prueba',\n  email: 'lead@example.com',\n  phone: '',\n  company: 'Empresa demo',\n  role: '',\n  need_summary: 'Necesidad de automatizar captación',\n  urgency: 'media',\n  consent: 'si',\n  status: 'nuevo',\n  lead_score: 4,\n  owner: '',\n  first_response_at: '',\n  meeting_booked_at: '',\n  qualified_at: '',\n  last_contact_at: now,\n  duplicate_of: '',\n  notes: 'Registro generado para prueba base'\n};\nreturn [{ json: row }];"
+      },
+      "id": "prepare-row-1",
+      "name": "Preparar lead demo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$json.email}}",
+        "subject": "Hemos recibido tu mensaje sobre Orquesta",
+        "emailType": "text",
+        "message": "=Hola {{$json.name}},\n\nGracias por escribirnos.\n\nHemos recibido tu mensaje y vamos a revisar tu caso para entender bien qué necesitas.\n\nSi te parece, puedes responder a este correo con una frase más concreta sobre el proceso que quieres mejorar o automatizar.\n\nUn saludo,\nOrquesta"
+      },
+      "id": "gmail-lead-1",
+      "name": "Gmail al lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [740, 220],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tanqueoc@gmail.com",
+        "subject": "=Nuevo lead Orquesta · {{$json.name}} · {{$json.company}}",
+        "emailType": "text",
+        "message": "=Ha entrado un nuevo lead.\n\nNombre: {{$json.name}}\nEmpresa: {{$json.company}}\nEmail: {{$json.email}}\nNecesidad: {{$json.need_summary}}\nUrgencia: {{$json.urgency}}\nScore inicial: {{$json.lead_score}}\nFuente: {{$json.source}}"
+      },
+      "id": "gmail-interno-1",
+      "name": "Aviso interno",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [740, 380],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Preparar lead demo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar lead demo": {
+      "main": [
+        [
+          {
+            "node": "Gmail al lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aviso interno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "orquesta-captacion-base-v1",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "id": "orquesta-captacion-base-v1",
+  "tags": []
+}

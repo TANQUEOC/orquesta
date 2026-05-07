@@ -1,0 +1,214 @@
+{
+  "name": "ORQUESTA - Captacion leads produccion v1",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger-1",
+      "name": "Cada 5 minutos",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [180, 340]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_FORM_RESPONSES_SPREADSHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Form Responses 1",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "read-form-responses-1",
+      "name": "Leer respuestas del formulario",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [420, 340],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_SHEETS_CREDENTIAL_ID",
+          "name": "REPLACE_SHEETS_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const seen = new Set();\nconst itemsOut = [];\nfor (const item of items) {\n  const r = item.json;\n  const email = (r.Email || r.email || '').toString().trim().toLowerCase();\n  const ts = (r.Timestamp || r.timestamp || '').toString().trim();\n  const key = `${email}__${ts}`;\n  if (!email || !ts) continue;\n  if (seen.has(key)) continue;\n  seen.add(key);\n  const urgencyRaw = (r['Nivel de urgencia'] || r.urgency || 'media').toString().trim().toLowerCase();\n  const need = (r['¿Qué proceso quieres mejorar o automatizar?'] || r.need_summary || '').toString().trim();\n  let score = 0;\n  if (need.length > 20) score += 3;\n  if ((r.Empresa || '').toString().trim()) score += 2;\n  if (urgencyRaw === 'alta') score += 2;\n  else if (urgencyRaw === 'media') score += 1;\n  if ((r['Teléfono'] || r.phone || '').toString().trim()) score += 1;\n  const createdAt = new Date(ts).toISOString();\n  itemsOut.push({ json: {\n    response_key: key,\n    lead_id: `lead_${Date.now()}_${Math.floor(Math.random()*10000)}`,\n    created_at: createdAt,\n    source: 'google-form',\n    campaign: '',\n    name: (r['Nombre'] || r.name || '').toString().trim(),\n    email,\n    phone: (r['Teléfono'] || r.phone || '').toString().trim(),\n    company: (r['Empresa'] || r.company || '').toString().trim(),\n    role: (r['Cargo o rol'] || r.role || '').toString().trim(),\n    need_summary: need,\n    urgency: urgencyRaw || 'media',\n    consent: (r['Consentimiento para contacto'] || r.consent || '').toString().trim(),\n    status: 'nuevo',\n    lead_score: score,\n    owner: 'luis',\n    first_response_at: '',\n    meeting_booked_at: '',\n    qualified_at: '',\n    last_contact_at: createdAt,\n    duplicate_of: '',\n    notes: 'Captado desde Google Form y normalizado por n8n'\n  } });\n}\nreturn itemsOut;"
+      },
+      "id": "normalize-score-1",
+      "name": "Normalizar y puntuar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 340]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Qg-KGo6i1bma04k7KL7B3pwJGrlDADtgS52dWtn3Piw",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "lead_id": "={{$json.lead_id}}",
+            "created_at": "={{$json.created_at}}",
+            "source": "={{$json.source}}",
+            "campaign": "={{$json.campaign}}",
+            "name": "={{$json.name}}",
+            "email": "={{$json.email}}",
+            "phone": "={{$json.phone}}",
+            "company": "={{$json.company}}",
+            "role": "={{$json.role}}",
+            "need_summary": "={{$json.need_summary}}",
+            "urgency": "={{$json.urgency}}",
+            "consent": "={{$json.consent}}",
+            "status": "={{$json.status}}",
+            "lead_score": "={{$json.lead_score}}",
+            "owner": "={{$json.owner}}",
+            "first_response_at": "={{$json.first_response_at}}",
+            "meeting_booked_at": "={{$json.meeting_booked_at}}",
+            "qualified_at": "={{$json.qualified_at}}",
+            "last_contact_at": "={{$json.last_contact_at}}",
+            "duplicate_of": "={{$json.duplicate_of}}",
+            "notes": "={{$json.notes}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "append-lead-master-1",
+      "name": "Guardar en hoja maestra leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [930, 340],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_SHEETS_CREDENTIAL_ID",
+          "name": "REPLACE_SHEETS_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$json.email}}",
+        "subject": "Hemos recibido tu mensaje sobre Orquesta",
+        "emailType": "text",
+        "message": "=Hola {{$json.name}},\n\nGracias por escribirnos.\n\nHemos recibido tu mensaje y vamos a revisar tu caso para entender bien qué proceso quieres mejorar o automatizar.\n\nSi te parece, puedes responder a este correo con una frase más concreta sobre el cuello de botella principal y el nivel de urgencia real.\n\nUn saludo,\nOrquesta"
+      },
+      "id": "gmail-lead-1",
+      "name": "Email automático al lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1200, 260],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tanqueoc@gmail.com",
+        "subject": "=Nuevo lead Orquesta · {{$json.name}} · {{$json.company}}",
+        "emailType": "text",
+        "message": "=Ha entrado un nuevo lead.\n\nNombre: {{$json.name}}\nEmpresa: {{$json.company}}\nEmail: {{$json.email}}\nTeléfono: {{$json.phone}}\nNecesidad: {{$json.need_summary}}\nUrgencia: {{$json.urgency}}\nScore inicial: {{$json.lead_score}}\nFuente: {{$json.source}}\nLead ID: {{$json.lead_id}}"
+      },
+      "id": "gmail-interno-1",
+      "name": "Aviso interno Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1200, 420],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Qg-KGo6i1bma04k7KL7B3pwJGrlDADtgS52dWtn3Piw",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "seguimiento",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_id": "={{'evt_' + Date.now()}}",
+            "lead_id": "={{$json.lead_id}}",
+            "event_type": "lead_created",
+            "event_at": "={{$json.created_at}}",
+            "actor": "n8n",
+            "detail": "={{'Lead creado desde Google Form con score ' + $json.lead_score}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "append-seguimiento-1",
+      "name": "Registrar evento seguimiento",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1200, 560],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_SHEETS_CREDENTIAL_ID",
+          "name": "REPLACE_SHEETS_CREDENTIAL_NAME"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cada 5 minutos": {
+      "main": [[{ "node": "Leer respuestas del formulario", "type": "main", "index": 0 }]]
+    },
+    "Leer respuestas del formulario": {
+      "main": [[{ "node": "Normalizar y puntuar", "type": "main", "index": 0 }]]
+    },
+    "Normalizar y puntuar": {
+      "main": [[{ "node": "Guardar en hoja maestra leads", "type": "main", "index": 0 }]]
+    },
+    "Guardar en hoja maestra leads": {
+      "main": [[
+        { "node": "Email automático al lead", "type": "main", "index": 0 },
+        { "node": "Aviso interno Gmail", "type": "main", "index": 0 },
+        { "node": "Registrar evento seguimiento", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "orquesta-captacion-produccion-v1",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "notes": "Workflow orientado a producción. Requiere definir REPLACE_FORM_RESPONSES_SPREADSHEET_ID y credenciales reales en n8n. Recomendado añadir filtro anti-duplicados persistente antes de activar en producción." 
+  },
+  "id": "orquesta-captacion-produccion-v1",
+  "tags": []
+}

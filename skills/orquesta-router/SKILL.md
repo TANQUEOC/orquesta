@@ -25,18 +25,48 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 
 ## Skills hijas disponibles
 
-### 1. `orquesta-marketing-autonomo`
+### 1. `orquesta-captacion-leads`
 Úsala cuando el reto esté centrado en:
-- captación
-- embudos
-- leads
+- captación de demanda
+- formularios y landings
+- lead flow
+- lead scoring
+- respuesta automática inicial
+- integración con CRM
+- conversión de lead a cita o venta
+
+### 2. `orquesta-onboarding-clientes`
+Úsala cuando el reto esté centrado en:
+- alta de nuevos clientes
+- bienvenida y kickoff
+- petición de datos o accesos
+- checklist de arranque
+- reparto de tareas internas
+- tiempo hasta primer valor
+- transición a operación normal
+
+### 3. `orquesta-control-operativo-reporting`
+Úsala cuando el reto esté centrado en:
+- reporting operativo
+- control diario
+- cuadros de mando
+- SLAs
+- backlog
+- alertas
+- incidencias
+- visibilidad para dirección u operaciones
+
+### 4. `orquesta-marketing-autonomo`
+Úsala cuando el reto esté centrado en:
+- arquitectura global de marketing
+- embudos completos
+- campañas
 - nurturing
 - CRM
-- campañas
 - contenido orientado a crecimiento
 - adquisición, activación, retención o revenue
 
-### 2. `orquesta-procesos-negocio`
+### 5. `orquesta-procesos-negocio`
 Úsala cuando el reto esté centrado en:
 - operaciones
 - backoffice
@@ -44,9 +74,9 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - integraciones entre sistemas
 - automatización de flujos
 - eficiencia operativa
-- aprobaciones, tickets, onboarding, documentación o circuitos de trabajo
+- aprobaciones, tickets, documentación o circuitos de trabajo más amplios
 
-### 3. `orquesta-creatividad-audiovisual`
+### 6. `orquesta-creatividad-audiovisual`
 Úsala cuando el reto esté centrado en:
 - branding audiovisual
 - campañas creativas
@@ -56,7 +86,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - contenido multiformato
 - producción creativa escalable
 
-### 4. `orquesta-control-total`
+### 7. `orquesta-control-total`
 Úsala cuando el reto esté centrado en:
 - gobierno
 - observabilidad
@@ -90,7 +120,9 @@ Si el problema mezcla varias áreas, haz esto:
 - responde con liderazgo de la skill principal, pero explicando qué otras capas intervienen
 
 Ejemplo:
-- un sistema de captación con reporting y gobierno → principal `orquesta-marketing-autonomo`, apoyo `orquesta-control-total`
+- un sistema de captación con formularios, scoring y handoff comercial → principal `orquesta-captacion-leads`, apoyo `orquesta-marketing-autonomo`
+- una alta de cliente con accesos, checklist y kickoff → principal `orquesta-onboarding-clientes`, apoyo `orquesta-procesos-negocio`
+- una operación con SLAs, incidencias y dashboard semanal → principal `orquesta-control-operativo-reporting`, apoyo `orquesta-control-total`
 - una fábrica de contenido con distribución y medición → principal `orquesta-creatividad-audiovisual`, apoyo `orquesta-marketing-autonomo`
 - una operación automatizada entre CRM, ERP y aprobaciones con observabilidad → principal `orquesta-procesos-negocio`, apoyo `orquesta-control-total`
 

@@ -1,0 +1,137 @@
+{
+  "name": "ORQUESTA - Captacion leads alineado sheet real v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date().toISOString();\nconst row = {\n  lead_id: `lead_${Date.now()}`,\n  created_at: now,\n  source: 'google-form',\n  campaign: '',\n  name: 'Lead de prueba',\n  email: 'lead@example.com',\n  phone: '',\n  company: 'Empresa demo',\n  role: 'CEO',\n  need_summary: 'Quiero automatizar captación y onboarding',\n  urgency: 'media',\n  consent: 'si',\n  status: 'nuevo',\n  lead_score: 4,\n  owner: 'luis',\n  first_response_at: now,\n  meeting_booked_at: '',\n  qualified_at: '',\n  last_contact_at: now,\n  duplicate_of: '',\n  notes: 'Prueba base contra Google Sheet real'\n};\nreturn [{ json: row }];"
+      },
+      "id": "prepare-row-1",
+      "name": "Preparar lead demo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 320]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Qg-KGo6i1bma04k7KL7B3pwJGrlDADtgS52dWtn3Piw",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "lead_id": "={{$json.lead_id}}",
+            "created_at": "={{$json.created_at}}",
+            "source": "={{$json.source}}",
+            "campaign": "={{$json.campaign}}",
+            "name": "={{$json.name}}",
+            "email": "={{$json.email}}",
+            "phone": "={{$json.phone}}",
+            "company": "={{$json.company}}",
+            "role": "={{$json.role}}",
+            "need_summary": "={{$json.need_summary}}",
+            "urgency": "={{$json.urgency}}",
+            "consent": "={{$json.consent}}",
+            "status": "={{$json.status}}",
+            "lead_score": "={{$json.lead_score}}",
+            "owner": "={{$json.owner}}",
+            "first_response_at": "={{$json.first_response_at}}",
+            "meeting_booked_at": "={{$json.meeting_booked_at}}",
+            "qualified_at": "={{$json.qualified_at}}",
+            "last_contact_at": "={{$json.last_contact_at}}",
+            "duplicate_of": "={{$json.duplicate_of}}",
+            "notes": "={{$json.notes}}"
+          }
+        },
+        "options": {}
+      },
+      "id": "google-sheets-append-1",
+      "name": "Append lead en Sheet real",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [700, 320],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_SHEETS_CREDENTIAL_ID",
+          "name": "REPLACE_SHEETS_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$json.email}}",
+        "subject": "Hemos recibido tu mensaje sobre Orquesta",
+        "emailType": "text",
+        "message": "=Hola {{$json.name}},\n\nGracias por escribirnos.\n\nHemos recibido tu mensaje y vamos a revisar tu caso para entender bien qué necesitas.\n\nSi te parece, puedes responder a este correo con una frase más concreta sobre el proceso que quieres mejorar o automatizar.\n\nUn saludo,\nOrquesta"
+      },
+      "id": "gmail-lead-1",
+      "name": "Gmail al lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [980, 220],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tanqueoc@gmail.com",
+        "subject": "=Nuevo lead Orquesta · {{$json.name}} · {{$json.company}}",
+        "emailType": "text",
+        "message": "=Ha entrado un nuevo lead.\n\nNombre: {{$json.name}}\nEmpresa: {{$json.company}}\nEmail: {{$json.email}}\nNecesidad: {{$json.need_summary}}\nUrgencia: {{$json.urgency}}\nScore inicial: {{$json.lead_score}}\nFuente: {{$json.source}}"
+      },
+      "id": "gmail-interno-1",
+      "name": "Aviso interno",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [980, 420],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_GMAIL_CREDENTIAL_ID",
+          "name": "REPLACE_GMAIL_CREDENTIAL_NAME"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Preparar lead demo", "type": "main", "index": 0 }]]
+    },
+    "Preparar lead demo": {
+      "main": [[{ "node": "Append lead en Sheet real", "type": "main", "index": 0 }]]
+    },
+    "Append lead en Sheet real": {
+      "main": [[
+        { "node": "Gmail al lead", "type": "main", "index": 0 },
+        { "node": "Aviso interno", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "orquesta-captacion-alineado-sheet-real-v1",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "notes": "Alineado a spreadsheet real 1Qg-KGo6i1bma04k7KL7B3pwJGrlDADtgS52dWtn3Piw y hoja leads"
+  },
+  "id": "orquesta-captacion-alineado-sheet-real-v1",
+  "tags": []
+}

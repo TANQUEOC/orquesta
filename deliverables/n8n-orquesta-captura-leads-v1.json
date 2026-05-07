@@ -1,0 +1,475 @@
+{
+  "name": "Orquesta - Captura leads comunidad v1",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{$env.SUPABASE_URL}}/rest/v1/community_registrations?select=*&status=in.(pending,retry)&welcome_sent_at=is.null&order=created_at.asc&limit=10",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2",
+      "name": "Get Pending Leads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": ""
+      },
+      "id": "3",
+      "name": "Split Leads Array",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        700,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "4",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        920,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "email-present",
+              "leftValue": "={{$json.email}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            },
+            {
+              "id": "name-present",
+              "leftValue": "={{$json.first_name || $json.nombre || $json.name}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5",
+      "name": "IF Valid Lead",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1140,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$env.SUPABASE_URL}}/rest/v1/community_registrations?id=eq.{{$json.id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"n8n_status\": \"processing\",\n  \"processed_at\": \"{{$now}}\"\n}"
+      },
+      "id": "6",
+      "name": "Mark Processing",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "={{$env.WELCOME_FROM_EMAIL}}",
+        "toEmail": "={{$json.email}}",
+        "subject": "Bienvenido a la comunidad de Orquesta",
+        "emailType": "html",
+        "message": "=<p>Hola <strong>{{$json.first_name || $json.nombre || $json.name}}</strong>,</p><p>Bienvenido a la comunidad de <strong>Orquesta</strong>.</p><p>Aquí exploramos cómo construir empresas más ligeras, más automatizadas y mejor orquestadas con IA.</p><p>En los próximos días te compartiremos ideas, casos de uso y piezas útiles para entender cómo aplicar este enfoque de forma real.</p><p>Un abrazo,<br>Luis y TANQUE</p>",
+        "options": {}
+      },
+      "id": "7",
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.smtp",
+      "typeVersion": 1,
+      "position": [
+        1590,
+        220
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "REPLACE_SMTP_CREDENTIAL_ID",
+          "name": "REPLACE_SMTP_CREDENTIAL_NAME"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "send-ok",
+              "leftValue": "={{$json.error}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8",
+      "name": "IF Welcome Sent",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1810,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$env.SUPABASE_URL}}/rest/v1/community_registrations?id=eq.{{$item(0).$node[\"IF Valid Lead\"].json.id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"status\": \"welcomed\",\n  \"n8n_status\": \"sent\",\n  \"welcome_sent_at\": \"{{$now}}\",\n  \"processed_at\": \"{{$now}}\",\n  \"error_message\": null\n}"
+      },
+      "id": "9",
+      "name": "Mark Success",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2040,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$env.SUPABASE_URL}}/rest/v1/community_registrations?id=eq.{{$item(0).$node[\"IF Valid Lead\"].json.id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"status\": {{$item(0).$node[\"IF Valid Lead\"].json.retry_count >= 2 ? \"failed\" : \"retry\"}},\n  \"n8n_status\": \"error\",\n  \"retry_count\": {{($item(0).$node[\"IF Valid Lead\"].json.retry_count || 0) + 1}},\n  \"last_retry_at\": \"{{$now}}\",\n  \"processed_at\": \"{{$now}}\",\n  \"error_message\": \"welcome_send_failed\"\n}"
+      },
+      "id": "10",
+      "name": "Mark Retry Or Failed",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2040,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$env.SUPABASE_URL}}/rest/v1/community_registrations?id=eq.{{$json.id}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_ROLE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"status\": \"failed\",\n  \"n8n_status\": \"error\",\n  \"processed_at\": \"{{$now}}\",\n  \"error_message\": \"invalid_lead_data\"\n}"
+      },
+      "id": "11",
+      "name": "Mark Invalid Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        420
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Pending Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pending Leads": {
+      "main": [
+        [
+          {
+            "node": "Split Leads Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Leads Array": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "IF Valid Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "IF Valid Lead": {
+      "main": [
+        [
+          {
+            "node": "Mark Processing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Invalid Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Processing": {
+      "main": [
+        [
+          {
+            "node": "Send Welcome Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Welcome Email": {
+      "main": [
+        [
+          {
+            "node": "IF Welcome Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Welcome Sent": {
+      "main": [
+        [
+          {
+            "node": "Mark Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Retry Or Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Success": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Retry Or Failed": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Invalid Lead": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "orquesta-captura-leads-v1",
+  "meta": {
+    "templateCredsSetup": [
+      "Define env vars SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, WELCOME_FROM_EMAIL",
+      "Replace SMTP credential id/name in Send Welcome Email node"
+    ]
+  },
+  "id": "orquesta-captura-leads-v1",
+  "tags": []
+}
