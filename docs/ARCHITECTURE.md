@@ -86,6 +86,8 @@ La arquitectura prevé conectar progresivamente:
 
 Estas integraciones no son accesorios. Son la base para que los agentes actúen sobre sistemas reales y no se queden en generación de texto.
 
+Regla de stack: cuando no haya una restricción fuerte, ORQUESTA debe favorecer stacks simples, muy conocidos por la IA, bien documentados y fáciles de mantener. Menos rareza técnica, más velocidad de implantación y mejor capacidad de iteración.
+
 - CRM
 - formularios
 - Gmail
