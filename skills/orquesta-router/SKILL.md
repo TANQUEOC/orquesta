@@ -1,6 +1,6 @@
 ---
 name: orquesta-router
-description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: captación, onboarding, control operativo y reporting, operaciones de ejecución, marketing autónomo, procesos de negocio, creatividad audiovisual, control total o capa tech de arquitectura, integraciones, n8n, APIs, Supabase, memoria, RAG y sistemas agentic reales.
+description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: captación, onboarding, control operativo y reporting, operaciones de ejecución, análisis ejecutivo y priorización, marketing autónomo, procesos de negocio, creatividad audiovisual, control total o capa tech de arquitectura, integraciones, n8n, APIs, Supabase, memoria, RAG y sistemas agentic reales.
 ---
 
 # Orquesta Router
@@ -67,7 +67,17 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - criterio de cierre
 - paso de control a trabajo real
 
-### 5. `orquesta-marketing-autonomo`
+### 5. `orquesta-analisis-ejecutivo`
+Úsala cuando el reto esté centrado en:
+- decidir el siguiente paso
+- priorizar iniciativas
+- ordenar un roadmap
+- comparar opciones
+- detectar el cuello de botella real
+- recomendar una secuencia de trabajo clara
+- explicar una decisión con criterio ejecutivo
+
+### 6. `orquesta-marketing-autonomo`
 Úsala cuando el reto esté centrado en:
 - arquitectura global de marketing
 - embudos completos
@@ -77,7 +87,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - contenido orientado a crecimiento
 - adquisición, activación, retención o revenue
 
-### 6. `orquesta-procesos-negocio`
+### 7. `orquesta-procesos-negocio`
 Úsala cuando el reto esté centrado en:
 - backoffice
 - procesos empresariales amplios
@@ -86,7 +96,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - eficiencia operativa de nivel proceso
 - aprobaciones, tickets, documentación o circuitos de trabajo más amplios
 
-### 7. `orquesta-creatividad-audiovisual`
+### 8. `orquesta-creatividad-audiovisual`
 Úsala cuando el reto esté centrado en:
 - branding audiovisual
 - campañas creativas
@@ -96,7 +106,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - contenido multiformato
 - producción creativa escalable
 
-### 8. `orquesta-control-total`
+### 9. `orquesta-control-total`
 Úsala cuando el reto esté centrado en:
 - gobierno
 - observabilidad
@@ -108,7 +118,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - control de agentes
 - riesgos operativos o compliance
 
-### 9. `orquesta-tech`
+### 10. `orquesta-tech`
 Úsala cuando el reto esté centrado en:
 - arquitectura técnica
 - integraciones
@@ -146,6 +156,7 @@ Ejemplo:
 - una alta de cliente con accesos, checklist y kickoff → principal `orquesta-onboarding-clientes`, apoyo `orquesta-operaciones-ejecucion`
 - una operación con SLAs, incidencias y dashboard semanal → principal `orquesta-control-operativo-reporting`, apoyo `orquesta-control-total`
 - una operación diaria con tareas, bloqueos y responsables → principal `orquesta-operaciones-ejecucion`, apoyo `orquesta-control-operativo-reporting`
+- una decisión sobre qué hacer primero, qué capa priorizar o cómo secuenciar un roadmap → principal `orquesta-analisis-ejecutivo`, apoyo según el dominio afectado
 - una fábrica de contenido con distribución y medición → principal `orquesta-creatividad-audiovisual`, apoyo `orquesta-marketing-autonomo`
 - una operación automatizada entre CRM, ERP y aprobaciones con observabilidad → principal `orquesta-procesos-negocio`, apoyo `orquesta-control-total`
 - una implantación con n8n, Supabase, webhooks, memoria y aprobación humana → principal `orquesta-tech`, apoyo según el proceso de negocio implicado
