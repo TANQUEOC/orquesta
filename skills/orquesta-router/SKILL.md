@@ -1,6 +1,6 @@
 ---
 name: orquesta-router
-description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: captación, onboarding, control operativo y reporting, operaciones de ejecución, análisis ejecutivo y priorización, evaluación de calidad, verticalización para pymes de servicios, marketing autónomo, procesos de negocio, creatividad audiovisual, control total o capa tech de arquitectura, integraciones, n8n, APIs, Supabase, memoria, RAG y sistemas agentic reales.
+description: Skill madre de Orquesta. Clasifica el problema empresarial y deriva a la skill de Orquesta correcta según el caso: captación, onboarding, control operativo y reporting, operaciones de ejecución, análisis ejecutivo y priorización, evaluación de calidad, verticalización para pymes de servicios, dirección comercial y venta consultiva, marketing autónomo, procesos de negocio, creatividad audiovisual, control total o capa tech de arquitectura, integraciones, n8n, APIs, Supabase, memoria, RAG y sistemas agentic reales.
 ---
 
 # Orquesta Router
@@ -88,7 +88,10 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 ### 7. `orquesta-servicios-pymes`
 Úsala cuando el reto esté centrado en adaptar ORQUESTA a una pyme de servicios con proyectos, mantenimiento, soporte o servicio recurrente.
 
-### 8. `orquesta-marketing-autonomo`
+### 8. `orquesta-venta-consultiva`
+Úsala cuando el reto esté centrado en cualificar oportunidades, entender dolor real, estructurar propuestas, responder objeciones, priorizar cuentas o mover una oportunidad hacia cierre.
+
+### 9. `orquesta-marketing-autonomo`
 Úsala cuando el reto esté centrado en:
 - arquitectura global de marketing
 - embudos completos
@@ -98,7 +101,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - contenido orientado a crecimiento
 - adquisición, activación, retención o revenue
 
-### 9. `orquesta-procesos-negocio`
+### 10. `orquesta-procesos-negocio`
 Úsala cuando el reto esté centrado en:
 - backoffice
 - procesos empresariales amplios
@@ -107,7 +110,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - eficiencia operativa de nivel proceso
 - aprobaciones, tickets, documentación o circuitos de trabajo más amplios
 
-### 10. `orquesta-creatividad-audiovisual`
+### 11. `orquesta-creatividad-audiovisual`
 Úsala cuando el reto esté centrado en:
 - branding audiovisual
 - campañas creativas
@@ -117,7 +120,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - contenido multiformato
 - producción creativa escalable
 
-### 11. `orquesta-control-total`
+### 12. `orquesta-control-total`
 Úsala cuando el reto esté centrado en:
 - gobierno
 - observabilidad
@@ -129,7 +132,7 @@ Si el usuario ya pide claramente una de las áreas específicas, usa directament
 - control de agentes
 - riesgos operativos o compliance
 
-### 12. `orquesta-tech`
+### 13. `orquesta-tech`
 Úsala cuando el reto esté centrado en:
 - arquitectura técnica
 - integraciones
@@ -170,6 +173,7 @@ Ejemplo:
 - una decisión sobre qué hacer primero, qué capa priorizar o cómo secuenciar un roadmap → principal `orquesta-analisis-ejecutivo`, apoyo según el dominio afectado
 - una revisión de si un plan, propuesta o respuesta está realmente lista → principal `orquesta-evaluacion-calidad`, apoyo según el dominio afectado
 - una implantación de ORQUESTA en agencia, consultora, despacho o pyme de servicios → principal `orquesta-servicios-pymes`, apoyo según la capa afectada
+- una conversación de discovery, propuesta, objeción o priorización comercial → principal `orquesta-venta-consultiva`, apoyo `orquesta-captacion-leads` si aplica
 - una fábrica de contenido con distribución y medición → principal `orquesta-creatividad-audiovisual`, apoyo `orquesta-marketing-autonomo`
 - una operación automatizada entre CRM, ERP y aprobaciones con observabilidad → principal `orquesta-procesos-negocio`, apoyo `orquesta-control-total`
 - una implantación con n8n, Supabase, webhooks, memoria y aprobación humana → principal `orquesta-tech`, apoyo según el proceso de negocio implicado
