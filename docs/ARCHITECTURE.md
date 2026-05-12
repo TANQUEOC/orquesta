@@ -35,7 +35,7 @@ Su función es:
 - convertir peticiones difusas en una ruta operativa clara
 
 ## 2. Agentes especializados
-Aunque hoy operemos desde una misma sesión, la arquitectura ya contempla estos agentes funcionales:
+Aunque hoy operemos desde una misma sesión, la arquitectura ya contempla estos agentes funcionales. El catálogo formal vive en `docs/AGENTES-ORQUESTA-CATALOGO.md`.
 
 Regla de diseño: cada agente debe trabajar con **objetivo**, no solo con prompt. Eso implica que cada pieza de Orquesta debe poder razonar, usar herramientas, observar resultados y decidir el siguiente paso dentro de límites definidos.
 

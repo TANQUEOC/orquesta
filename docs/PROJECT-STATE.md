@@ -11,6 +11,7 @@ Para evitar duplicidad, la estructura canónica queda así:
 - modelo formal AaaS → `docs/ORQUESTA-AAGENTS-AS-A-SERVICE.md`
 - reformulación v3 de pilares → `docs/ORQUESTA-v3-PILARES-AGENTIC.md`
 - alineación formal de pilares con AaaS → `docs/ORQUESTA-PILARES-AAS-ALIGNMENT.md`
+- catálogo formal de agentes → `docs/AGENTES-ORQUESTA-CATALOGO.md`
 - detalle operativo por pilar → `docs/pilares/`
 - entregables listos para cliente o implantación → `deliverables/`
 
