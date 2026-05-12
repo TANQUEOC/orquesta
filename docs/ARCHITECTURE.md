@@ -128,6 +128,9 @@ La cadena operativa resultante es:
 
 **Captación → Onboarding → Control → Operaciones → Growth**
 
+Para el detalle relacional de handoffs y approval gates, consulta:
+- `docs/MAPA-RELACIONES-AGENTES-HANDOFFS-APPROVAL-GATES.md`
+
 La interfaz visible, dashboards, sheets o documentos deben considerarse la capa de supervisión y gobierno, no el producto principal.
 
 ## 6. Gobierno de producción

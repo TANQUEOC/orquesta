@@ -371,7 +371,11 @@ La evolución natural del catálogo es:
 4. separar agentes persistentes cuando el uso lo justifique
 5. convertir casos maduros en productos AaaS más explícitos
 
-## 8. Mensaje de síntesis
+## 8. Relación con otros documentos
+Para ver cómo colaboran entre sí, qué handoffs existen y dónde intervienen los approval gates, consulta:
+- `docs/MAPA-RELACIONES-AGENTES-HANDOFFS-APPROVAL-GATES.md`
+
+## 9. Mensaje de síntesis
 ORQUESTA ya no debe presentarse como una suma de automatizaciones, dashboards y flujos.
 
 Debe presentarse como un **catálogo de agentes operativos especializados** que ejecutan trabajo real por el cliente bajo supervisión humana.
