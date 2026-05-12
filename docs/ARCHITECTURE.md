@@ -71,10 +71,18 @@ Orquesta v2 se apoya en cinco pilares documentales y operativos:
 4. **reporting y control**
 5. **creatividad y crecimiento**
 
+A partir del modelo AaaS, estos pilares no deben leerse solo como áreas funcionales. Deben leerse como **capacidades operativas desplegadas mediante agentes especializados**.
+
 Cada pilar debe acabar teniendo:
 - visión del pilar
+- agente principal o familia de agentes
 - casos de uso
 - procesos tipo
+- trigger de entrada
+- contexto y memoria necesarios
+- tools utilizables
+- approval gates
+- outputs esperados
 - stack recomendado
 - KPIs
 - riesgos
@@ -106,6 +114,21 @@ Y además crear:
 - documentos de trabajo por caso
 - catálogos de herramientas y acciones por agente
 - contratos de entrada y salida entre procesos
+
+## 5.5. Alineación AaaS de la columna principal
+La secuencia prioritaria de ORQUESTA debe leerse ya como una red mínima de agentes operativos conectados:
+
+- **Agente de Captación**
+- **Agente de Onboarding**
+- **Agente de Control Operativo**
+- **Agente de Operaciones**
+- **Agentes de Growth y Revenue**
+
+La cadena operativa resultante es:
+
+**Captación → Onboarding → Control → Operaciones → Growth**
+
+La interfaz visible, dashboards, sheets o documentos deben considerarse la capa de supervisión y gobierno, no el producto principal.
 
 ## 6. Gobierno de producción
 Todo diseño serio en Orquesta debe incorporar desde el principio estas piezas:

@@ -9,7 +9,10 @@ En ORQUESTA v3, Operaciones es la capacidad de **mover trabajo real dentro del n
 Conseguir que la operación avance con menos persecución, menos olvido y menos desgaste operativo.
 
 ## Skill principal
-- `orquesta-procesos-negocio`
+- `orquesta-operaciones-ejecucion`
+
+## Lectura AaaS del pilar
+Operaciones debe leerse como el despliegue de un **Agente de Operaciones** que convierte casos activos en trabajo real ejecutable con responsables, tareas, dependencias, bloqueos y cierre.
 
 ## Qué trabajo real debe ejecutar el sistema
 - mover tareas entre estados
@@ -48,5 +51,8 @@ La promesa es:
 
 **te ayudo a que la operación avance con menos persecución, menos olvido y menos desgaste operativo.**
 
+## Handoff natural
+- `Control operativo y reporting → Operaciones`
+
 ## Siguiente caso recomendado
-Diseñar un caso operativo real centrado en seguimiento, handoffs y escalado de bloqueos en operación semanal.
+Diseñar un caso operativo real centrado en seguimiento, handoffs, creación de tareas, responsables y escalado de bloqueos en operación semanal.
