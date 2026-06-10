@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORQUESTA · Estado técnico v2 · ES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#07111b; --bg2:#0b1624; --card:#0f1c2c; --card2:#112235; --text:#ecf4fb; --muted:#90a4b8;
+      --line:#21364c; --cyan:#19d7cf; --cyan2:#72f3ff; --violet:#8b5cf6; --green:#16c784; --amber:#f5b84b; --red:#ef6b6b;
+      --shadow:0 24px 70px rgba(0,0,0,.30);
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at 0% 0%, rgba(25,215,207,.12), transparent 25%),radial-gradient(circle at 100% 0%, rgba(139,92,246,.10), transparent 25%),linear-gradient(180deg,var(--bg),var(--bg2) 55%, var(--bg));}
+    .wrap{max-width:1380px;margin:0 auto;padding:28px 20px 50px}
+    .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}.dot{width:14px;height:14px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px rgba(25,215,207,.6)}.brand{font-weight:800}.brand small{font:12px 'JetBrains Mono',monospace;color:var(--muted)}
+    .hero,.card,.footer{background:linear-gradient(180deg,rgba(15,28,44,.96),rgba(11,22,36,.96));border:1px solid rgba(255,255,255,.05);border-radius:26px;box-shadow:var(--shadow)}
+    .hero{padding:30px;margin-bottom:20px}.eyebrow{display:inline-flex;padding:8px 12px;border-radius:999px;border:1px solid rgba(25,215,207,.18);font:12px 'JetBrains Mono',monospace;color:var(--cyan2);background:rgba(25,215,207,.06);margin-bottom:14px}
+    h1{margin:0 0 10px;font-size:clamp(38px,5vw,62px);line-height:.94;letter-spacing:-.04em}.sub{color:#d7e5f0;font-size:18px;line-height:1.55;max-width:920px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:start}.scorebox{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:16px}.mini .k{color:var(--muted);font:12px 'JetBrains Mono',monospace;margin-bottom:6px}.mini .v{font-size:28px;font-weight:800}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}.card{padding:22px}.card h2{margin:0 0 16px;font-size:26px}
+    .band{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}.chip{padding:8px 12px;border-radius:999px;font-weight:700;font-size:12px}.c-green{background:rgba(22,199,132,.12);color:#bff5de}.c-cyan{background:rgba(25,215,207,.12);color:#c5fbff}.c-amber{background:rgba(245,184,75,.12);color:#ffe0a3}.c-violet{background:rgba(139,92,246,.14);color:#dfd0ff}
+    .exec-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:18px}.kpi .n{font-size:36px;font-weight:800}.kpi .l{margin-top:6px;color:#dbe8f2;font-weight:600}.kpi .s{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.4}
+    .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.pillar{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:18px}.pillar h3{margin:0 0 10px;font-size:22px}.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.status{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.s-green{background:rgba(22,199,132,.12);color:#bff5de}.s-cyan{background:rgba(25,215,207,.12);color:#c5fbff}.s-amber{background:rgba(245,184,75,.12);color:#ffe0a3}.s-violet{background:rgba(139,92,246,.14);color:#dfd0ff}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid rgba(255,255,255,.04)}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+    .pillar p{color:#d6e3ee;font-size:14px;line-height:1.5;margin:12px 0 0}.muted{color:var(--muted)}
+    .radar-note{color:#d7e4ee;line-height:1.55}.list{margin:0;padding-left:18px}.list li{margin:8px 0;color:#d6e3ee}
+    .footer{padding:22px}.footer h2{margin:0 0 12px}.footer p{margin:0;color:#d7e4ee;line-height:1.6}
+    @media (max-width:1100px){.hero-grid,.grid,.exec-summary,.pillars{grid-template-columns:1fr 1fr}.scorebox{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){.hero-grid,.grid,.exec-summary,.pillars,.scorebox{grid-template-columns:1fr}.wrap{padding:18px 14px 34px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="dot"></div><div class="brand">ORQUESTA <small>· by CompañIA</small></div></div>
+
+  <section class="hero">
+    <div class="eyebrow">Versión 2 · Informe ejecutivo · Español</div>
+    <div class="hero-grid">
+      <div>
+        <h1>Estado técnico por pilar</h1>
+        <p class="sub">Lectura ejecutiva y visual del nivel de desarrollo de ORQUESTA. La idea no es medir “calidad del discurso”, sino cuánto de cada pilar está ya convertido en sistema real, reusable e implantable.</p>
+        <div class="band">
+          <div class="chip c-green">Más maduro: Captación</div>
+          <div class="chip c-cyan">Avanzados: Onboarding · Tech</div>
+          <div class="chip c-amber">En medio: Control · Operaciones</div>
+          <div class="chip c-violet">Más verde: Growth</div>
+        </div>
+      </div>
+      <div class="scorebox">
+        <div class="mini"><div class="k">MADUREZ GLOBAL</div><div class="v">64%</div></div>
+        <div class="mini"><div class="k">PIEZAS FUERTES</div><div class="v">3</div></div>
+        <div class="mini"><div class="k">PIEZAS MEDIAS</div><div class="v">3</div></div>
+        <div class="mini"><div class="k">PIEZA MÁS VERDE</div><div class="v">1</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:20px;">
+    <h2>Resumen ejecutivo</h2>
+    <div class="exec-summary">
+      <div class="kpi"><div class="n">78%</div><div class="l">Captación</div><div class="s">La pieza más madura y más vendible hoy.</div></div>
+      <div class="kpi"><div class="n">69%</div><div class="l">Onboarding</div><div class="s">Muy bien orientado, aún por cerrar como pack completo.</div></div>
+      <div class="kpi"><div class="n">64%</div><div class="l">Tech transversal</div><div class="s">Clave y bastante serio, todavía madurando en producción.</div></div>
+      <div class="kpi"><div class="n">44%</div><div class="l">Growth</div><div class="s">Claro en visión, menos aterrizado operativamente.</div></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Pilares</h2>
+      <div class="pillars">
+        <div class="pillar"><div class="meta"><h3>Captación</h3><span class="status s-green">Fuerte</span></div><div class="bar"><div class="fill" style="width:78%"></div></div><p>La pieza más madura. Cercana a implantación end-to-end y a sprint demostrable.</p></div>
+        <div class="pillar"><div class="meta"><h3>Venta consultiva</h3><span class="status s-violet">Definida</span></div><div class="bar"><div class="fill" style="width:55%"></div></div><p>Bien modelada y útil en catálogo, pero menos cerrada como sistema operativo real.</p></div>
+        <div class="pillar"><div class="meta"><h3>Onboarding</h3><span class="status s-cyan">Avanzado</span></div><div class="bar"><div class="fill" style="width:69%"></div></div><p>Muy buena base técnica y documental. Falta rematar la implantación completa.</p></div>
+        <div class="pillar"><div class="meta"><h3>Control</h3><span class="status s-amber">Medio</span></div><div class="bar"><div class="fill" style="width:58%"></div></div><p>Fuerte en dashboards, reporting y alertas; menos en despliegue productivo final.</p></div>
+        <div class="pillar"><div class="meta"><h3>Operaciones</h3><span class="status s-amber">Medio</span></div><div class="bar"><div class="fill" style="width:52%"></div></div><p>Existe como columna arquitectónica seria, pero todavía menos cerrada como caso real.</p></div>
+        <div class="pillar"><div class="meta"><h3>Growth</h3><span class="status s-violet">Más verde</span></div><div class="bar"><div class="fill" style="width:44%"></div></div><p>Importante dentro de la visión, pero aún no tan operativo como el resto.</p></div>
+        <div class="pillar" style="grid-column:1/-1"><div class="meta"><h3>Tech transversal</h3><span class="status s-cyan">Avanzado</span></div><div class="bar"><div class="fill" style="width:64%"></div></div><p>La capa que hace posible memoria, tools, observabilidad, aprobación y runtime. Muy importante y bien orientada.</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Lectura de dirección</h2>
+      <p class="radar-note">ORQUESTA está más fuerte hoy en <strong>arquitectura, relato, catálogo, piezas vendibles y estructura agentic</strong> que en despliegue completo de todos los pilares. La mejor lectura ejecutiva es esta:</p>
+      <ul class="list">
+        <li><strong>Ya hay sistema:</strong> no estamos en fase de idea suelta.</li>
+        <li><strong>Captación</strong> es la punta de lanza real.</li>
+        <li><strong>Onboarding</strong> ya tiene cuerpo serio y está cerca de convertirse en pack completo.</li>
+        <li><strong>Control y Operaciones</strong> necesitan más traducción a implantación de verdad.</li>
+        <li><strong>Growth</strong> todavía va por detrás en madurez técnica.</li>
+        <li><strong>Tech transversal</strong> es cada vez más crítica: sin ella, ORQUESTA sería narrativa; con ella, puede ser sistema.</li>
+      </ul>
+      <p class="muted" style="margin-top:16px;">Conclusión: ORQUESTA ya es una arquitectura seria. El siguiente salto no es pensar más el sistema, sino cerrar más piezas operativas de extremo a extremo.</p>
+    </section>
+  </div>
+
+  <section class="footer">
+    <h2>Conclusión</h2>
+    <p>La versión más honesta hoy es: <strong>ORQUESTA está fuerte en diseño, fuerte en valor estratégico y razonablemente fuerte en algunas piezas operativas</strong>, pero aún debe consolidar más implantación real en varios pilares para pasar de sistema prometedor a sistema desplegado con continuidad.</p>
+  </section>
+</div>
+</body>
+</html>
