@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORQUESTA · Estado técnico de pilares v1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #081018;
+      --bg2: #0d1621;
+      --card: #101b28;
+      --card2: #132131;
+      --text: #eaf2f8;
+      --muted: #8ea0b3;
+      --line: #223447;
+      --cyan: #18d8d0;
+      --cyan2: #71f0ff;
+      --violet: #8b5cf6;
+      --green: #1fcb8f;
+      --amber: #f6b84f;
+      --red: #ef6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,.28);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(24,216,208,.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(139,92,246,.10), transparent 22%),
+        linear-gradient(180deg, #081018, #0b1420 55%, #081018);
+    }
+    .wrap { max-width: 1420px; margin: 0 auto; padding: 28px 20px 48px; }
+    .topbar { display:flex; align-items:center; gap:12px; margin-bottom: 20px; }
+    .dot { width:14px; height:14px; border-radius:50%; background: var(--cyan); box-shadow: 0 0 18px rgba(24,216,208,.65); }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    .brand small { color: var(--muted); font: 12px 'JetBrains Mono', monospace; font-weight: 500; }
+    .hero, .section, .footerbox {
+      background: linear-gradient(180deg, rgba(16,27,40,.95), rgba(13,22,33,.95));
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero { padding: 28px; margin-bottom: 20px; }
+    .pill { display:inline-flex; padding: 8px 12px; border-radius: 999px; border:1px solid rgba(24,216,208,.18); color: var(--cyan2); font: 12px 'JetBrains Mono', monospace; background: rgba(24,216,208,.06); margin-bottom: 14px; }
+    h1 { margin: 0 0 10px; font-size: clamp(34px, 5vw, 58px); line-height: .95; letter-spacing: -.04em; }
+    .hero-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 20px; align-items: start; }
+    .subtitle { color: #d6e5f0; font-size: 17px; line-height: 1.55; max-width: 880px; margin: 0; }
+    .meta { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .meta-card { background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius: 18px; padding: 16px; }
+    .meta-card .k { color: var(--muted); font: 12px 'JetBrains Mono', monospace; margin-bottom: 6px; }
+    .meta-card .v { font-size: 22px; font-weight: 700; }
+    .section { padding: 24px; margin-bottom: 20px; }
+    .section h2 { margin: 0 0 18px; font-size: 28px; }
+    .kpi-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+    .kpi { background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius: 20px; padding: 18px; }
+    .kpi .label { color: var(--muted); font: 12px 'JetBrains Mono', monospace; margin-bottom: 10px; }
+    .kpi .big { font-size: 34px; font-weight: 800; }
+    .kpi .small { margin-top: 8px; color: #c5d5e1; font-size: 14px; }
+    .two-col { display:grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
+    .panel { background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius: 20px; padding: 18px; }
+    .panel h3 { margin: 0 0 16px; font-size: 22px; }
+    .gauges { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .gauge { text-align:center; }
+    .ring {
+      --size: 160px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      background: conic-gradient(var(--ring-color) calc(var(--pct)*1%), rgba(255,255,255,.06) 0);
+      display:grid;
+      place-items:center;
+      position: relative;
+    }
+    .ring::before {
+      content: "";
+      width: calc(var(--size) - 34px);
+      height: calc(var(--size) - 34px);
+      border-radius: 50%;
+      background: linear-gradient(180deg, #0d1621, #0a1320);
+      border: 1px solid rgba(255,255,255,.04);
+      position:absolute;
+    }
+    .ring span {
+      position: relative;
+      z-index: 1;
+      font-size: 34px;
+      font-weight: 800;
+    }
+    .gauge .name { font-weight: 700; }
+    .gauge .desc { margin-top: 6px; color: var(--muted); font-size: 14px; line-height: 1.4; }
+    .pie-row { display:grid; grid-template-columns: 260px 1fr; gap: 20px; align-items: center; }
+    .pie {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      margin: 0 auto;
+      background:
+        conic-gradient(
+          var(--green) 0 22%,
+          var(--cyan) 22% 42%,
+          var(--amber) 42% 67%,
+          var(--violet) 67% 82%,
+          var(--red) 82% 100%
+        );
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+    .pie::after {
+      content: "Status mix";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      font: 700 16px Inter, sans-serif;
+      color: var(--text);
+      background: #0c1420;
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .legend { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .leg { display:flex; align-items:flex-start; gap: 10px; }
+    .sw { width: 14px; height: 14px; border-radius: 4px; margin-top: 3px; }
+    .leg b { display:block; font-size: 14px; }
+    .leg span { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .table { overflow:auto; }
+    table { width:100%; border-collapse: collapse; min-width: 980px; }
+    th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.06); vertical-align: top; }
+    th { color: #d7e6f2; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+    td { color: #d5e1ea; font-size: 14px; }
+    .status {
+      display:inline-flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 999px; font-weight: 700; font-size: 12px;
+      border:1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.04);
+    }
+    .s-green { color: #aff3d6; background: rgba(31,203,143,.12); }
+    .s-cyan { color: #b1fbff; background: rgba(24,216,208,.12); }
+    .s-amber { color: #ffe0a5; background: rgba(246,184,79,.12); }
+    .s-violet { color: #dccbff; background: rgba(139,92,246,.14); }
+    .bar {
+      width: 180px; height: 10px; border-radius: 999px; background: rgba(255,255,255,.06); overflow: hidden; border:1px solid rgba(255,255,255,.03);
+    }
+    .bar > i { display:block; height:100%; border-radius: 999px; background: linear-gradient(90deg, var(--cyan), var(--violet)); }
+    .footerbox { padding: 22px; }
+    .bilingual-title { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom: 16px; }
+    .suben { color: var(--muted); font-size: 14px; }
+    ul.clean { margin: 0; padding-left: 18px; color:#d2e1ec; }
+    ul.clean li { margin: 8px 0; }
+    @media (max-width: 1100px) {
+      .hero-grid, .two-col, .pie-row { grid-template-columns: 1fr; }
+      .kpi-grid, .gauges { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .kpi-grid, .gauges, .legend, .meta { grid-template-columns: 1fr; }
+      .ring { --size: 140px; }
+      .pie { width: 210px; height: 210px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="dot"></div>
+      <div class="brand">ORQUESTA <small>· by CompañIA</small></div>
+    </div>
+
+    <section class="hero">
+      <div class="pill">Version 1 · Informe visual bilingüe / Bilingual visual report</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Estado técnico de los pilares de ORQUESTA</h1>
+          <p class="subtitle"><strong>ES:</strong> Informe visual simple para entender qué piezas de ORQUESTA están más maduras, cuáles están avanzadas y cuáles necesitan más desarrollo técnico. <br><br><strong>EN:</strong> Simple visual report to understand which ORQUESTA pillars are more mature, which ones are progressing well, and which ones still need more technical development.</p>
+        </div>
+        <div class="meta">
+          <div class="meta-card"><div class="k">CASTELLANO</div><div class="v">7 pilares</div></div>
+          <div class="meta-card"><div class="k">ENGLISH</div><div class="v">7 pillars</div></div>
+          <div class="meta-card"><div class="k">ESTADO GLOBAL</div><div class="v">Diseño fuerte</div></div>
+          <div class="meta-card"><div class="k">GLOBAL STATE</div><div class="v">Strong design</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Indicadores generales · General indicators</h2>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="label">PIEZAS MÁS MADURAS · MOST MATURE</div><div class="big">2</div><div class="small">Captación y posicionamiento/arquitectura</div></div>
+        <div class="kpi"><div class="label">PIEZAS AVANZADAS · ADVANCED</div><div class="big">2</div><div class="small">Onboarding y Tech transversal</div></div>
+        <div class="kpi"><div class="label">PIEZAS MEDIAS · MID STAGE</div><div class="big">2</div><div class="small">Control y Operaciones</div></div>
+        <div class="kpi"><div class="label">PIEZA MÁS VERDE · MOST EARLY</div><div class="big">1</div><div class="small">Growth aún menos cerrada operativamente</div></div>
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div class="panel">
+        <h3>Relojes de madurez técnica · Technical maturity gauges</h3>
+        <div class="gauges">
+          <div class="gauge">
+            <div class="ring" style="--pct:78; --ring-color: var(--green);"><span>78%</span></div>
+            <div class="name">Captación / Lead Capture</div>
+            <div class="desc">Pieza más madura y más cercana a implantación real.</div>
+          </div>
+          <div class="gauge">
+            <div class="ring" style="--pct:69; --ring-color: var(--cyan);"><span>69%</span></div>
+            <div class="name">Onboarding</div>
+            <div class="desc">Muy buena base, aún falta cerrarlo como pack real.</div>
+          </div>
+          <div class="gauge">
+            <div class="ring" style="--pct:58; --ring-color: var(--amber);"><span>58%</span></div>
+            <div class="name">Control</div>
+            <div class="desc">Fuerte en diseño, menos cerrado en ejecución.</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Gráfica de tarta · Pie chart by status</h3>
+        <div class="pie-row">
+          <div class="pie" aria-hidden="true"></div>
+          <div class="legend">
+            <div class="leg"><i class="sw" style="background:var(--green)"></i><div><b>Alta madurez / High maturity</b><span>Captación, núcleo arquitectónico</span></div></div>
+            <div class="leg"><i class="sw" style="background:var(--cyan)"></i><div><b>Avanzado / Advanced</b><span>Onboarding, Tech transversal</span></div></div>
+            <div class="leg"><i class="sw" style="background:var(--amber)"></i><div><b>Medio / Mid stage</b><span>Control, Operaciones</span></div></div>
+            <div class="leg"><i class="sw" style="background:var(--violet)"></i><div><b>Bien definido / Well defined</b><span>Venta consultiva, fuerte en modelo</span></div></div>
+            <div class="leg"><i class="sw" style="background:var(--red)"></i><div><b>Más verde / Early</b><span>Growth todavía menos operativizado</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Pilares y estado técnico · Pillars and technical development state</h2>
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Pilar / Pillar</th>
+              <th>Estado</th>
+              <th>Madurez</th>
+              <th>ES</th>
+              <th>EN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Captación</strong><br><span style="color:var(--muted)">Lead Capture</span></td>
+              <td><span class="status s-green">Fuerte</span></td>
+              <td><div class="bar"><i style="width:78%"></i></div></td>
+              <td>La pieza más madura. Es la más cercana a implantación end-to-end y a demo/sprint vendible.</td>
+              <td>The most mature piece. Closest to end-to-end implementation and to a sellable sprint/demo.</td>
+            </tr>
+            <tr>
+              <td><strong>Venta consultiva</strong><br><span style="color:var(--muted)">Consultative Sales</span></td>
+              <td><span class="status s-violet">Bien definida</span></td>
+              <td><div class="bar"><i style="width:55%"></i></div></td>
+              <td>Buena definición conceptual y en catálogo, pero menos operativizada que Captación.</td>
+              <td>Well defined conceptually and in the agent catalog, but less operationalized than Lead Capture.</td>
+            </tr>
+            <tr>
+              <td><strong>Onboarding</strong><br><span style="color:var(--muted)">Onboarding</span></td>
+              <td><span class="status s-cyan">Avanzado</span></td>
+              <td><div class="bar"><i style="width:69%"></i></div></td>
+              <td>Muy buen trabajo documental y técnico base. Falta cerrarlo como pack real de implementación.</td>
+              <td>Strong documentary and technical base. Still needs to be closed as a real implementation pack.</td>
+            </tr>
+            <tr>
+              <td><strong>Control</strong><br><span style="color:var(--muted)">Operational Control</span></td>
+              <td><span class="status s-amber">Medio</span></td>
+              <td><div class="bar"><i style="width:58%"></i></div></td>
+              <td>Fuerte en dashboards, reporting y lógica de alertas, menos fuerte en implantación productiva cerrada.</td>
+              <td>Strong in dashboards, reporting and alert logic, less strong in fully closed production deployment.</td>
+            </tr>
+            <tr>
+              <td><strong>Operaciones</strong><br><span style="color:var(--muted)">Operations</span></td>
+              <td><span class="status s-amber">Medio</span></td>
+              <td><div class="bar"><i style="width:52%"></i></div></td>
+              <td>Existe como columna arquitectónica, pero todavía menos cerrada como caso implantado real.</td>
+              <td>Exists as an architectural pillar, but is still less closed as a real deployed use case.</td>
+            </tr>
+            <tr>
+              <td><strong>Growth</strong><br><span style="color:var(--muted)">Growth</span></td>
+              <td><span class="status s-violet">Definido</span></td>
+              <td><div class="bar"><i style="width:44%"></i></div></td>
+              <td>Importante dentro de la visión, pero todavía menos maduro como sistema operativo real.</td>
+              <td>Important within the vision, but still less mature as a real operating system.</td>
+            </tr>
+            <tr>
+              <td><strong>Tech transversal</strong><br><span style="color:var(--muted)">Cross-cutting Tech</span></td>
+              <td><span class="status s-cyan">Avanzado</span></td>
+              <td><div class="bar"><i style="width:64%"></i></div></td>
+              <td>Clave para memoria, tools, observabilidad, aprobación y runtime. Muy bien orientado, aún madurando en producción.</td>
+              <td>Key for memory, tools, observability, approval and runtime. Very well oriented, still maturing in production.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="footerbox">
+      <div class="bilingual-title">
+        <h2 style="margin:0">Lectura rápida / Quick read</h2>
+        <div class="suben">Version 1 · easy to understand</div>
+      </div>
+      <div class="two-col">
+        <div>
+          <ul class="clean">
+            <li><strong>ES:</strong> ORQUESTA está muy fuerte en arquitectura, relato, catálogo y diseño de sistema.</li>
+            <li><strong>ES:</strong> Captación es la pieza más madura hoy.</li>
+            <li><strong>ES:</strong> Onboarding va bien encaminado, pero le falta cierre operativo total.</li>
+            <li><strong>ES:</strong> Control y Operaciones tienen base seria, pero necesitan más implantación real.</li>
+            <li><strong>ES:</strong> Growth está claro como visión, pero es la pieza menos madura técnicamente.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="clean">
+            <li><strong>EN:</strong> ORQUESTA is very strong in architecture, narrative, catalog and system design.</li>
+            <li><strong>EN:</strong> Lead Capture is the most mature pillar today.</li>
+            <li><strong>EN:</strong> Onboarding is well advanced, but still needs full operational closure.</li>
+            <li><strong>EN:</strong> Control and Operations are serious pieces, but need more real implementation.</li>
+            <li><strong>EN:</strong> Growth is clear as a vision, but is still the least mature technically.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
