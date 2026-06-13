@@ -34,6 +34,23 @@ Aumentar ritmo y capacidad de crecimiento sin convertir la creatividad en un cue
 - distribución multicanal
 - medición de rendimiento
 - realimentación por resultados
+- agente IA especialista en creación y programación de publicaciones en LinkedIn
+
+## Caso de uso ya registrado en este pilar
+### Agente IA especialista en creación y programación de publicaciones en LinkedIn
+- ruta principal: `deliverables/ORQUESTA-CASO-DE-USO-AGENTE-LINKEDIN-v1.md`
+- paquete ejecutable: `deliverables/orquesta-v3-caso-uso-growth-linkedin-v1/paquete-ejecutable-v1/README.md`
+- encaje principal: **Growth**
+- soporte secundario: **Tech transversal** y **Control**
+
+### Qué cubre
+- interpretación de prompt editorial
+- planificación de calendario
+- generación de copy
+- generación o asociación de imagen
+- persistencia en base de datos
+- programación en LinkedIn
+- trazabilidad de estados hasta publicación o cancelación
 
 ## KPIs típicos
 - piezas publicadas

@@ -1,0 +1,19 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app ./app
+COPY examples ./examples
+COPY docs-LINKEDIN-INTEGRATION.md ./docs-LINKEDIN-INTEGRATION.md
+COPY README.md ./README.md
+COPY .env.example ./.env.example
+
+EXPOSE 8010
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8010"]

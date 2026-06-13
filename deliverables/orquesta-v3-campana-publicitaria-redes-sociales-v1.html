@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORQUESTA · Campaña publicitaria en redes sociales</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0d1728;
+      --panel: rgba(10, 22, 40, 0.82);
+      --panel-2: rgba(16, 31, 53, 0.92);
+      --line: rgba(95, 240, 255, 0.16);
+      --line-2: rgba(132, 101, 255, 0.22);
+      --text: #ecf7ff;
+      --muted: #99afc7;
+      --primary: #57f0ff;
+      --primary-2: #7a5cff;
+      --success: #70f2b5;
+      --warning: #ffd36c;
+      --danger: #ff7c9f;
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(87,240,255,.18), transparent 22%),
+        radial-gradient(circle at 85% 12%, rgba(122,92,255,.18), transparent 28%),
+        linear-gradient(180deg, #050c16 0%, #07111f 48%, #08111b 100%);
+      min-height: 100vh;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(87,240,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(87,240,255,.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.45));
+      pointer-events: none;
+    }
+
+    .wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(7, 17, 31, .55);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 0 20px rgba(87,240,255,.7);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--primary);
+      background: rgba(87,240,255,.07);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(13,23,40,.88), rgba(7,17,31,.92));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-copy {
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(87,240,255,.18), transparent 62%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .lead {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 780px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+    }
+
+    .mini-panel {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(87,240,255,.08), rgba(122,92,255,.08));
+      border: 1px solid var(--line);
+    }
+
+    .mini-panel h3,
+    .section h2,
+    .side-box h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .mini-panel p,
+    .side-box p,
+    .help,
+    .section p,
+    .list li,
+    .field-note,
+    .option-note {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .section {
+      padding: 28px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-head p { margin: 0; max-width: 720px; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field,
+    .field-full {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(3, 10, 19, .72);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 15px;
+      font: inherit;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+    }
+
+    textarea { min-height: 180px; resize: vertical; }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(87,240,255,.55);
+      box-shadow: 0 0 0 4px rgba(87,240,255,.12);
+    }
+
+    .field-note { font-size: 13px; margin: 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      cursor: pointer;
+      min-width: 180px;
+    }
+
+    .chip input { width: auto; margin: 0; accent-color: var(--primary); }
+
+    .upload {
+      border: 1.5px dashed rgba(87,240,255,.25);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(87,240,255,.04);
+    }
+
+    .upload input[type="file"] {
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .actions-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #79f7ff 55%, #8e85ff);
+      color: #04111a;
+      box-shadow: 0 16px 36px rgba(87,240,255,.22);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      border-color: rgba(255,255,255,.08);
+    }
+
+    .status-box,
+    .side-box {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(112,242,181,.08);
+      border: 1px solid rgba(112,242,181,.25);
+      color: var(--success);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .preview {
+      display: grid;
+      gap: 12px;
+    }
+
+    .preview-card {
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(9,17,29,.84), rgba(15,28,46,.95));
+      border: 1px solid rgba(122,92,255,.18);
+    }
+
+    .preview-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .preview-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 18px; }
+      .hero-copy,
+      .hero-side,
+      .section { padding: 22px; }
+      .form-grid,
+      .hero-stats { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; align-items: stretch; }
+      .actions-left { width: 100%; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <main class="wrap">
+    <div class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-dot"></span>
+        <span>ORQUESTA · by CompañIA</span>
+      </a>
+      <span class="tag">Growth · Agente editorial</span>
+    </div>
+
+    <section class="hero">
+      <div class="card hero-copy">
+        <span class="tag">Campaña publicitaria en redes sociales</span>
+        <h1>Lanza campañas editoriales con agentes, no con caos.</h1>
+        <p class="lead">
+          Define el prompt, la periodicidad, el canal y la estrategia visual. ORQUESTA convierte esa instrucción en una campaña operativa lista para generar publicaciones, preparar assets, ordenar calendario y lanzar la ejecución.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>1 prompt</strong>
+            <span>Origina un lote completo de publicaciones con estructura y trazabilidad.</span>
+          </div>
+          <div class="stat">
+            <strong>LinkedIn</strong>
+            <span>Canal activo inicial, preparado para futuro selector multicanal.</span>
+          </div>
+          <div class="stat">
+            <strong>Humano dentro</strong>
+            <span>Gobernanza, aprobación y decisión visible antes de publicar.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card hero-side">
+        <div class="mini-panel">
+          <h3>Qué resuelve esta pieza</h3>
+          <p>Evita que cada campaña nazca en mensajes sueltos, notas mal cerradas o tareas sin continuidad. Todo queda en una sola superficie de ejecución.</p>
+        </div>
+        <div class="mini-panel">
+          <h3>Flujo esperado</h3>
+          <p>Prompt → parámetros → lote editorial → imágenes → calendario → aprobación → programación.</p>
+        </div>
+        <div class="mini-panel">
+          <h3>Preparada para escalar</h3>
+          <p>Hoy arranca con LinkedIn. La arquitectura de la pantalla ya deja sitio para X, Instagram, Facebook, YouTube o email en futuras versiones.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="layout">
+      <div class="card section">
+        <div class="section-head">
+          <div>
+            <h2>Configurar campaña</h2>
+            <p>Rellena la instrucción editorial, la cadencia y la estrategia visual. Esta pantalla está pensada para disparar el agente Growth de publicaciones en LinkedIn.</p>
+          </div>
+        </div>
+
+        <form id="campaignForm">
+          <div class="form-grid">
+            <div class="field-full">
+              <label for="prompt">Prompt de creación</label>
+              <textarea id="prompt" placeholder="Ejemplo: Quiero una campaña de 8 publicaciones para LinkedIn dirigida a dueños de pymes de servicios. Tema: cómo implantar agentes IA que reduzcan fricción operativa. Tono: claro, útil, ejecutivo, humano. Añade CTA suave para pedir diagnóstico."></textarea>
+              <p class="field-note">Aquí va la instrucción principal que el agente usará como origen del lote editorial.</p>
+            </div>
+
+            <div class="field">
+              <label for="periodicidad">Periodicidad de publicación</label>
+              <select id="periodicidad">
+                <option>1 publicación por semana</option>
+                <option selected>2 publicaciones por semana</option>
+                <option>3 publicaciones por semana</option>
+                <option>Diaria</option>
+                <option>Personalizada</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="cantidad">Número de publicaciones</label>
+              <input id="cantidad" type="number" min="1" value="8" />
+            </div>
+
+            <div class="field">
+              <label for="inicio">Fecha de inicio</label>
+              <input id="inicio" type="date" />
+            </div>
+
+            <div class="field">
+              <label for="hora">Hora preferida</label>
+              <input id="hora" type="time" value="09:00" />
+            </div>
+
+            <div class="field">
+              <label for="canal">Canal</label>
+              <select id="canal">
+                <option selected>LinkedIn</option>
+                <option disabled>Instagram (próximamente)</option>
+                <option disabled>X / Twitter (próximamente)</option>
+                <option disabled>Facebook (próximamente)</option>
+                <option disabled>YouTube (próximamente)</option>
+              </select>
+              <p class="field-note">Hoy el flujo operativo arranca con LinkedIn, pero el selector ya queda preparado para multicanal.</p>
+            </div>
+
+            <div class="field">
+              <label for="tono">Tono editorial</label>
+              <select id="tono">
+                <option>Ejecutivo</option>
+                <option selected>Profesional cercano</option>
+                <option>Técnico claro</option>
+                <option>Inspirador</option>
+                <option>Comercial sobrio</option>
+              </select>
+            </div>
+
+            <div class="field-full">
+              <label>Imágenes de la campaña</label>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="imagenes" value="auto" checked /> Generar automáticamente</label>
+                <label class="chip"><input type="radio" name="imagenes" value="manual" /> Subir imágenes manualmente</label>
+                <label class="chip"><input type="radio" name="imagenes" value="mixed" /> Mezcla: base automática + revisión manual</label>
+              </div>
+              <p class="field-note">Puedes arrancar con generación automática o aportar piezas visuales a mano para mantener control creativo.</p>
+            </div>
+
+            <div class="field-full">
+              <div class="upload">
+                <label for="imagenes">Añadir imágenes manuales</label>
+                <input id="imagenes" type="file" multiple accept="image/*" />
+                <p class="option-note">Sube aquí imágenes, referencias o portadas si quieres que el agente las use como base visual del lote.</p>
+              </div>
+            </div>
+
+            <div class="field-full">
+              <label for="instrucciones">Instrucciones adicionales</label>
+              <textarea id="instrucciones" style="min-height: 120px" placeholder="Ejemplo: Evitar tono grandilocuente. Hablar de agentes como empleados digitales bajo supervisión humana. Incluir CTA a diagnóstico ORQUESTA. No abusar de hashtags."></textarea>
+            </div>
+
+            <div class="field-full">
+              <label class="chip" style="max-width: 420px;"><input id="requireApproval" type="checkbox" checked /> Requerir aprobación humana antes de programar o publicar</label>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="actions-left">
+              <button id="saveDraftBtn" type="button" class="btn btn-secondary">Guardar borrador</button>
+              <button id="previewBtn" type="button" class="btn btn-secondary">Previsualizar lote</button>
+            </div>
+            <button id="launchBtn" type="button" class="btn btn-primary">Lanzar ejecución</button>
+          </div>
+          <div id="runtimeStatus" class="field-note" style="margin-top:14px; color: var(--primary);">Runtime no conectado todavía.</div>
+          <pre id="runtimeOutput" style="display:none; margin-top:14px; padding:16px; border-radius:16px; background: rgba(3,10,19,.72); border:1px solid rgba(255,255,255,.08); color: var(--muted); white-space: pre-wrap; overflow:auto;"></pre>
+        </form>
+      </div>
+
+      <aside class="side-stack">
+        <div class="card side-box">
+          <span class="status-pill">v1 · LinkedIn activo</span>
+          <h3>Qué va a hacer al pulsar “Lanzar ejecución”</h3>
+          <ol class="list">
+            <li>Guardar el prompt y los parámetros del lote.</li>
+            <li>Generar publicaciones estructuradas con copy, CTA y hashtags.</li>
+            <li>Asignar fechas según la periodicidad indicada.</li>
+            <li>Crear o asociar imágenes según el modo elegido.</li>
+            <li>Dejar la campaña lista para aprobación y programación.</li>
+          </ol>
+        </div>
+
+        <div class="card side-box">
+          <h3>Vista previa del resultado esperado</h3>
+          <div class="preview">
+            <div class="preview-card">
+              <strong>Publicación 01 · Problema</strong>
+              <div>“La mayoría de las pymes no están frenadas por falta de software, sino por fricción operativa entre personas, herramientas y procesos.”</div>
+              <div class="preview-meta">Estado: Pendiente de aprobación · Canal: LinkedIn</div>
+            </div>
+            <div class="preview-card">
+              <strong>Publicación 02 · Solución</strong>
+              <div>“Un agente bien diseñado no sustituye criterio humano. Sostiene trabajo real con memoria, contexto y trazabilidad.”</div>
+              <div class="preview-meta">Estado: Borrador generado · Imagen: automática</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card side-box">
+          <h3>Campos imprescindibles del runtime</h3>
+          <ul class="list">
+            <li>prompt de creación</li>
+            <li>canal seleccionado</li>
+            <li>periodicidad</li>
+            <li>número de publicaciones</li>
+            <li>modo de imagen</li>
+            <li>approval gate</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <p class="footer-note">Pieza diseñada para ORQUESTA / CompañIA. Lista para integración posterior en la web principal o conversión a componente real en Lovable/React.</p>
+  </main>
+  <script>
+    const API_BASE = window.ORQUESTA_API_BASE || localStorage.getItem('orquesta_api_base') || 'http://127.0.0.1:8010';
+
+    function mapPeriodicity(value) {
+      const mapping = {
+        '1 publicación por semana': '1_per_week',
+        '2 publicaciones por semana': '2_per_week',
+        '3 publicaciones por semana': '3_per_week',
+        'Diaria': 'daily',
+        'Personalizada': 'custom'
+      };
+      return mapping[value] || '2_per_week';
+    }
+
+    function mapChannel(value) {
+      const normalized = (value || '').toLowerCase();
+      if (normalized.includes('linkedin')) return 'linkedin';
+      if (normalized.includes('instagram')) return 'instagram';
+      if (normalized.includes('twitter') || normalized.includes('x')) return 'x';
+      if (normalized.includes('facebook')) return 'facebook';
+      if (normalized.includes('youtube')) return 'youtube';
+      return 'linkedin';
+    }
+
+    function selectedImageMode() {
+      return document.querySelector('input[name="imagenes"]:checked')?.value || 'auto';
+    }
+
+    function payloadFromForm() {
+      return {
+        prompt: document.getElementById('prompt').value,
+        periodicity: mapPeriodicity(document.getElementById('periodicidad').value),
+        publication_count: Number(document.getElementById('cantidad').value || 8),
+        channel: mapChannel(document.getElementById('canal').value),
+        language_code: 'es',
+        tone: document.getElementById('tono').value.toLowerCase(),
+        style: 'claro y útil',
+        start_date: document.getElementById('inicio').value,
+        preferred_time: document.getElementById('hora').value,
+        image_mode: selectedImageMode(),
+        require_approval: document.getElementById('requireApproval').checked,
+        extra_instructions: document.getElementById('instrucciones').value,
+        creator: 'luis'
+      };
+    }
+
+    function setStatus(text, isError = false) {
+      const el = document.getElementById('runtimeStatus');
+      el.textContent = text;
+      el.style.color = isError ? 'var(--danger)' : 'var(--primary)';
+    }
+
+    function showOutput(data) {
+      const out = document.getElementById('runtimeOutput');
+      out.style.display = 'block';
+      out.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function callRuntime(path) {
+      const payload = payloadFromForm();
+      if (!payload.prompt || !payload.start_date || !payload.preferred_time) {
+        setStatus('Faltan campos obligatorios: prompt, fecha de inicio y hora.', true);
+        return;
+      }
+      try {
+        setStatus('Ejecutando llamada al runtime...');
+        const response = await fetch(`${API_BASE}${path}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          setStatus(`Error runtime ${response.status}`, true);
+          showOutput(data);
+          return;
+        }
+        setStatus(path.includes('launch') ? 'Campaña enviada al runtime.' : 'Preview generado.');
+        showOutput(data);
+      } catch (error) {
+        setStatus(`No se pudo conectar con el runtime: ${error.message}`, true);
+      }
+    }
+
+    document.getElementById('previewBtn').addEventListener('click', () => callRuntime('/campaigns/preview'));
+    document.getElementById('launchBtn').addEventListener('click', () => callRuntime('/campaigns/launch'));
+    document.getElementById('saveDraftBtn').addEventListener('click', () => {
+      localStorage.setItem('orquesta_growth_linkedin_campaign_draft', JSON.stringify(payloadFromForm()));
+      setStatus('Borrador guardado en localStorage del navegador.');
+    });
+
+    (() => {
+      const draft = localStorage.getItem('orquesta_growth_linkedin_campaign_draft');
+      if (!draft) return;
+      try {
+        const data = JSON.parse(draft);
+        document.getElementById('prompt').value = data.prompt || '';
+        document.getElementById('cantidad').value = data.publication_count || 8;
+        document.getElementById('inicio').value = data.start_date || '';
+        document.getElementById('hora').value = data.preferred_time || '09:00';
+        document.getElementById('instrucciones').value = data.extra_instructions || '';
+        document.getElementById('requireApproval').checked = !!data.require_approval;
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>

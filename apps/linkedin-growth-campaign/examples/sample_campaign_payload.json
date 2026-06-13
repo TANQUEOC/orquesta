@@ -1,0 +1,15 @@
+{
+  "prompt": "Quiero una campaña de 8 publicaciones para LinkedIn dirigida a dueños de pymes de servicios. Tema: cómo implantar agentes IA que reduzcan fricción operativa. Tono: claro, útil, ejecutivo, humano. Añade CTA suave para pedir diagnóstico.",
+  "periodicity": "2_per_week",
+  "publication_count": 8,
+  "channel": "linkedin",
+  "language_code": "es",
+  "tone": "profesional cercano",
+  "style": "claro y útil",
+  "start_date": "2026-06-16",
+  "preferred_time": "09:00",
+  "image_mode": "auto",
+  "require_approval": true,
+  "extra_instructions": "Evitar tono grandilocuente. Hablar de agentes como empleados digitales bajo supervisión humana. CTA a diagnóstico ORQUESTA.",
+  "creator": "luis"
+}

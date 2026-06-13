@@ -1,0 +1,9 @@
+services:
+  orquesta-linkedin-growth-campaign:
+    build: .
+    container_name: orquesta-linkedin-growth-campaign
+    ports:
+      - "8010:8010"
+    env_file:
+      - .env
+    restart: unless-stopped
